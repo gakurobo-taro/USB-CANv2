@@ -53,6 +53,9 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
+#define USE_USB_CDC
+void usb_cdc_rx_callback(const uint8_t *input,size_t size);
+void SystemClock_Config(void);
 
 /* USER CODE END EFP */
 

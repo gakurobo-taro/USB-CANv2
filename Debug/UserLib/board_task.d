@@ -1,4 +1,5 @@
-Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
+UserLib/board_task.o: ../UserLib/board_task.cpp ../UserLib/board_task.hpp \
+ ../Core/Inc/fdcan.h ../Core/Inc/main.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../Core/Inc/stm32h7xx_hal_conf.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \
@@ -35,27 +36,26 @@ Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h \
- ../Core/Inc/fdcan.h ../Core/Inc/main.h ../Core/Inc/tim.h \
- ../Core/Inc/usart.h ../USB_DEVICE/App/usb_device.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
- ../USB_DEVICE/Target/usbd_conf.h ../Core/Inc/gpio.h \
- ../Core/Src/../../UserLib/board_task.hpp \
- ../Core/Src/../../UserLib/fdcan_as_can.hpp \
- ../Core/Src/../../UserLib/STM32HAL_CommonLib/can_comm.hpp \
- ../Core/Src/../../UserLib/STM32HAL_CommonLib/ring_buffer.hpp \
- ../Core/Src/../../UserLib/STM32HAL_CommonLib/byte_reader_writer.hpp \
- ../Core/Src/../../UserLib/LED_pattern.hpp \
- ../Core/Src/../../UserLib/STM32HAL_CommonLib/LED_control.hpp \
- ../Core/Src/../../UserLib/STM32HAL_CommonLib/pwm.hpp \
- ../Core/Src/../../UserLib/STM32HAL_CommonLib/serial_comm.hpp \
+ ../Core/Inc/tim.h ../UserLib/fdcan_as_can.hpp \
+ ../UserLib/STM32HAL_CommonLib/can_comm.hpp ../Core/Inc/main.h \
+ ../UserLib/STM32HAL_CommonLib/ring_buffer.hpp \
+ ../UserLib/STM32HAL_CommonLib/byte_reader_writer.hpp \
+ ../UserLib/LED_pattern.hpp ../UserLib/STM32HAL_CommonLib/LED_control.hpp \
+ ../UserLib/STM32HAL_CommonLib/pwm.hpp \
+ ../UserLib/STM32HAL_CommonLib/serial_comm.hpp \
  ../USB_DEVICE/App/usbd_cdc_if.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
+ ../USB_DEVICE/Target/usbd_conf.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h \
- ../Core/Src/../../UserLib/STM32HAL_CommonLib/timer_control.hpp
+ ../USB_DEVICE/App/usb_device.h \
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
+ ../UserLib/STM32HAL_CommonLib/timer_control.hpp
+../UserLib/board_task.hpp:
+../Core/Inc/fdcan.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
 ../Core/Inc/stm32h7xx_hal_conf.h:
@@ -93,28 +93,24 @@ Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd.h:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h:
-../Core/Inc/fdcan.h:
-../Core/Inc/main.h:
 ../Core/Inc/tim.h:
-../Core/Inc/usart.h:
-../USB_DEVICE/App/usb_device.h:
-../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
-../USB_DEVICE/Target/usbd_conf.h:
-../Core/Inc/gpio.h:
-../Core/Src/../../UserLib/board_task.hpp:
-../Core/Src/../../UserLib/fdcan_as_can.hpp:
-../Core/Src/../../UserLib/STM32HAL_CommonLib/can_comm.hpp:
-../Core/Src/../../UserLib/STM32HAL_CommonLib/ring_buffer.hpp:
-../Core/Src/../../UserLib/STM32HAL_CommonLib/byte_reader_writer.hpp:
-../Core/Src/../../UserLib/LED_pattern.hpp:
-../Core/Src/../../UserLib/STM32HAL_CommonLib/LED_control.hpp:
-../Core/Src/../../UserLib/STM32HAL_CommonLib/pwm.hpp:
-../Core/Src/../../UserLib/STM32HAL_CommonLib/serial_comm.hpp:
+../UserLib/fdcan_as_can.hpp:
+../UserLib/STM32HAL_CommonLib/can_comm.hpp:
+../Core/Inc/main.h:
+../UserLib/STM32HAL_CommonLib/ring_buffer.hpp:
+../UserLib/STM32HAL_CommonLib/byte_reader_writer.hpp:
+../UserLib/LED_pattern.hpp:
+../UserLib/STM32HAL_CommonLib/LED_control.hpp:
+../UserLib/STM32HAL_CommonLib/pwm.hpp:
+../UserLib/STM32HAL_CommonLib/serial_comm.hpp:
 ../USB_DEVICE/App/usbd_cdc_if.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
+../USB_DEVICE/Target/usbd_conf.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h:
-../Core/Src/../../UserLib/STM32HAL_CommonLib/timer_control.hpp:
+../USB_DEVICE/App/usb_device.h:
+../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
+../UserLib/STM32HAL_CommonLib/timer_control.hpp:

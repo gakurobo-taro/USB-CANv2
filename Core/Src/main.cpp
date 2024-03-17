@@ -26,6 +26,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "../../UserLib/board_task.hpp"
+using namespace G24_STM32HAL;
 
 /* USER CODE END Includes */
 
@@ -58,6 +60,33 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+    if (htim == UsbCanBoard::led_timer.get_handler()){
+    	UsbCanBoard::led_timer.interrupt_task();
+    }
+}
+void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs){
+	if (hfdcan==UsbCanBoard::can1.get_handler()) {
+		UsbCanBoard::LED1_R.play(UsbCanLib::ok);
+		UsbCanBoard::can1.rx_interrupt_task();
+	}
+}
+void HAL_FDCAN_RxFifo1Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs){
+	if (hfdcan==UsbCanBoard::can2.get_handler()) {
+		UsbCanBoard::LED2_R.play(UsbCanLib::ok);
+		UsbCanBoard::can2.rx_interrupt_task();
+	}
+}
+void HAL_FDCAN_TxBufferCompleteCallback(FDCAN_HandleTypeDef *hfdcan, uint32_t BufferIndexes){
+	if (hfdcan==UsbCanBoard::can2.get_handler()) {
+		UsbCanBoard::LED2_G.play(UsbCanLib::ok);
+		UsbCanBoard::can2.tx_interrupt_task();
+	}else if(hfdcan==UsbCanBoard::can1.get_handler()) {
+		UsbCanBoard::LED1_G.play(UsbCanLib::ok);
+		UsbCanBoard::can1.tx_interrupt_task();
+	}
+}
 
 /* USER CODE END 0 */
 
@@ -97,7 +126,9 @@ int main(void)
   MX_USB_DEVICE_Init();
   MX_UART4_Init();
   MX_UART8_Init();
+  MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
+  UsbCanBoard::init();
 
   /* USER CODE END 2 */
 
