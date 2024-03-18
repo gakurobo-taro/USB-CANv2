@@ -14,6 +14,8 @@
 #include "LED_pattern.hpp"
 
 #include "STM32HAL_CommonLib/serial_comm.hpp"
+#include "STM32HAL_CommonLib/data_packet.hpp"
+#include "STM32HAL_CommonLib/data_convert.hpp"
 #include "STM32HAL_CommonLib/LED_control.hpp"
 #include "STM32HAL_CommonLib/timer_control.hpp"
 
@@ -50,8 +52,43 @@ namespace G24_STM32HAL::UsbCanBoard{
 
 	inline auto usb = CommonLib::UsbCdcComm<4,4>{&hUsbDeviceFS};
 
+	enum class CommonReg:uint16_t{
+		NOP,
+		ID_REQEST,
+		EMERGENCY_STOP = 0xE,
+		RESET_EMERGENCY_STOP = 0xF,
+	};
+
+	struct DeviceList{
+		std::array<uint32_t,32> list;
+		size_t n = 0;
+		bool has_device(uint32_t id){
+			if(n!=0){
+				for(size_t i = 0; i < n; i++){
+					if(list.at(i) == (id&0x00FF0000)){
+						return true;
+					}
+				}
+				return false;
+			}else{
+				return false;
+			}
+
+		}
+	};
+
+	inline bool bus_is_open = false;
+	inline DeviceList bus1_list;
+	inline DeviceList bus2_list;
+
 	void init(void);
 
+	void main_communication_task(void);
+
+	DeviceList bus_device_check(UsbCanLib::FdCanComm &can);
+
+	void usb_to_can_task(void);
+	void can_to_usb_task(void);
 }
 
 

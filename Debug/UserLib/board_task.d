@@ -53,6 +53,11 @@ UserLib/board_task.o: ../UserLib/board_task.cpp ../UserLib/board_task.hpp \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h \
  ../USB_DEVICE/App/usb_device.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
+ ../UserLib/STM32HAL_CommonLib/data_packet.hpp \
+ ../UserLib/STM32HAL_CommonLib/data_convert.hpp \
+ ../UserLib/STM32HAL_CommonLib/can_comm.hpp \
+ ../UserLib/STM32HAL_CommonLib/serial_comm.hpp \
+ ../UserLib/STM32HAL_CommonLib/data_packet.hpp \
  ../UserLib/STM32HAL_CommonLib/timer_control.hpp
 ../UserLib/board_task.hpp:
 ../Core/Inc/fdcan.h:
@@ -113,4 +118,9 @@ UserLib/board_task.o: ../UserLib/board_task.cpp ../UserLib/board_task.hpp \
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h:
 ../USB_DEVICE/App/usb_device.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
+../UserLib/STM32HAL_CommonLib/data_packet.hpp:
+../UserLib/STM32HAL_CommonLib/data_convert.hpp:
+../UserLib/STM32HAL_CommonLib/can_comm.hpp:
+../UserLib/STM32HAL_CommonLib/serial_comm.hpp:
+../UserLib/STM32HAL_CommonLib/data_packet.hpp:
 ../UserLib/STM32HAL_CommonLib/timer_control.hpp:

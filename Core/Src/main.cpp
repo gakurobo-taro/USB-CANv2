@@ -87,6 +87,9 @@ void HAL_FDCAN_TxBufferCompleteCallback(FDCAN_HandleTypeDef *hfdcan, uint32_t Bu
 		UsbCanBoard::can1.tx_interrupt_task();
 	}
 }
+void usb_cdc_rx_callback(const uint8_t *input,size_t size){
+	UsbCanBoard::usb.rx_interrupt_task(input, size);
+}
 
 /* USER CODE END 0 */
 
@@ -128,7 +131,7 @@ int main(void)
   MX_UART8_Init();
   MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
-  UsbCanBoard::init();
+UsbCanBoard::init();
 
   /* USER CODE END 2 */
 
@@ -139,6 +142,12 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  UsbCanBoard::usb_to_can_task();
+	  if(UsbCanBoard::bus_is_open){
+		  UsbCanBoard::LED1_B.play(UsbCanLib::ok);
+		  UsbCanBoard::LED2_B.play(UsbCanLib::ok);
+		  UsbCanBoard::can_to_usb_task();
+	  }
   }
   /* USER CODE END 3 */
 }
@@ -177,7 +186,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLM = 1;
   RCC_OscInitStruct.PLL.PLLN = 60;
   RCC_OscInitStruct.PLL.PLLP = 2;
-  RCC_OscInitStruct.PLL.PLLQ = 15;
+  RCC_OscInitStruct.PLL.PLLQ = 20;
   RCC_OscInitStruct.PLL.PLLR = 2;
   RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_3;
   RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;

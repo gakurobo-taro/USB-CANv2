@@ -35,14 +35,14 @@ namespace G24_STM32HAL::UsbCanLib{
 		void start(void){
 			HAL_FDCAN_Start(fdcan);
 			HAL_FDCAN_ActivateNotification(fdcan, rx_fifo_it, 0);
-			HAL_FDCAN_ActivateNotification(fdcan, rx_fifo_it, 0);
+			HAL_FDCAN_ActivateNotification(fdcan, FDCAN_IT_TX_COMPLETE, FDCAN_TX_BUFFER0 | FDCAN_TX_BUFFER1 | FDCAN_TX_BUFFER2);
 		}
 
 		uint32_t tx_available(void)const override{return tx_buff->get_free_level();}
 		void tx_interrupt_task(void);
 		bool tx(const CanFrame &tx_frame)override;
 
-		uint32_t rx_available(void)const override{return rx_buff->get_free_level();}
+		uint32_t rx_available(void)const override{return rx_buff->get_busy_level();}
 		void rx_interrupt_task(void);
 		bool rx(CanFrame &rx_frame)override;
 
