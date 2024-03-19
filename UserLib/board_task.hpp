@@ -54,7 +54,10 @@ namespace G24_STM32HAL::UsbCanBoard{
 			FDCAN_FLAG_RX_FIFO0_NEW_MESSAGE
 	};
 
-	inline auto usb = CommonLib::UsbCdcComm<4,4>{&hUsbDeviceFS};
+	inline auto usb = CommonLib::UsbCdcComm{&hUsbDeviceFS,
+		std::make_unique<CommonLib::RingBuffer<CommonLib::SerialData,5> >(),
+		std::make_unique<CommonLib::RingBuffer<CommonLib::SerialData,5> >()
+	};
 
 	enum class CommonReg:uint16_t{
 		NOP,
