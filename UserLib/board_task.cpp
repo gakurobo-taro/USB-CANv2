@@ -16,6 +16,7 @@ namespace G24_STM32HAL::UsbCanBoard{
 			LED2_R.update();
 			LED2_G.update();
 			LED2_B.update();
+			usb.tx_interrupt_task();
 		});
 		led_timer.set_and_start(1000);
 
