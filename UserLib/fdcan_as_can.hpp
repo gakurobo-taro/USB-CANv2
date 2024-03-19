@@ -19,22 +19,24 @@ namespace G24_STM32HAL::UsbCanLib{
 		const uint32_t rx_fifo;
 		const uint32_t rx_filter_fifo;
 		const uint32_t rx_fifo_it;
+		const uint32_t rx_fifo_it_buff;
 
 		std::unique_ptr<IRingBuffer<CanFrame> > rx_buff;
 		std::unique_ptr<IRingBuffer<CanFrame> > tx_buff;
 	public:
-		FdCanComm(FDCAN_HandleTypeDef *_fdcan,std::unique_ptr<IRingBuffer<CanFrame>> _rx_buff,std::unique_ptr<IRingBuffer<CanFrame>> &&_tx_buff,uint32_t _rx_fifo,uint32_t _rx_filter_fifo,uint32_t _rx_fifo_it)
+		FdCanComm(FDCAN_HandleTypeDef *_fdcan,std::unique_ptr<IRingBuffer<CanFrame>> _rx_buff,std::unique_ptr<IRingBuffer<CanFrame>> &&_tx_buff,uint32_t _rx_fifo,uint32_t _rx_filter_fifo,uint32_t _rx_fifo_it,uint32_t _rx_fifo_it_buff)
 			:fdcan(_fdcan),
 		 	 rx_buff(std::move(_rx_buff)),
 			 tx_buff(std::move(_tx_buff)),
 			 rx_fifo(_rx_fifo),
 			 rx_filter_fifo(_rx_filter_fifo),
-			 rx_fifo_it(_rx_fifo_it){
+			 rx_fifo_it(_rx_fifo_it),
+			 rx_fifo_it_buff(_rx_fifo_it_buff){
 		}
 
 		void start(void){
 			HAL_FDCAN_Start(fdcan);
-			HAL_FDCAN_ActivateNotification(fdcan, rx_fifo_it, 0);
+			HAL_FDCAN_ActivateNotification(fdcan, rx_fifo_it, rx_fifo_it_buff);
 			HAL_FDCAN_ActivateNotification(fdcan, FDCAN_IT_TX_COMPLETE, FDCAN_TX_BUFFER0 | FDCAN_TX_BUFFER1 | FDCAN_TX_BUFFER2);
 		}
 
