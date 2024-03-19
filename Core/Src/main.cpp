@@ -71,8 +71,6 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 		UsbCanBoard::LED1_R.play(UsbCanLib::ok);
 		UsbCanBoard::can1.rx_interrupt_task();
 	}
-}
-void HAL_FDCAN_RxFifo1Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs){
 	if (hfdcan==UsbCanBoard::can2.get_handler()) {
 		UsbCanBoard::LED2_R.play(UsbCanLib::ok);
 		UsbCanBoard::can2.rx_interrupt_task();
