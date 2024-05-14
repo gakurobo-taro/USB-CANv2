@@ -37,8 +37,8 @@ namespace G24_STM32HAL::UsbCanBoard{
 	inline auto LED2_B = CommonLib::LEDPwm{&htim3,TIM_CHANNEL_3};
 
 	inline auto can1 = UsbCanLib::FdCanComm{&hfdcan1,
-			std::make_unique<CommonLib::RingBuffer<CommonLib::CanFrame,5> >(),
-			std::make_unique<CommonLib::RingBuffer<CommonLib::CanFrame,5> >(),
+			std::make_unique<CommonLib::RingBuffer<CommonLib::CanFrame,8> >(),
+			std::make_unique<CommonLib::RingBuffer<CommonLib::CanFrame,8> >(),
 			FDCAN_RX_FIFO0,
 			FDCAN_FILTER_TO_RXFIFO0,
 			FDCAN_IT_RX_FIFO0_NEW_MESSAGE,
@@ -46,17 +46,17 @@ namespace G24_STM32HAL::UsbCanBoard{
 	};
 
 	inline auto can2 = UsbCanLib::FdCanComm{&hfdcan2,
-			std::make_unique<CommonLib::RingBuffer<CommonLib::CanFrame,5> >(),
-			std::make_unique<CommonLib::RingBuffer<CommonLib::CanFrame,5> >(),
-			FDCAN_RX_FIFO0,
-			FDCAN_FILTER_TO_RXFIFO0,
-			FDCAN_IT_RX_FIFO0_NEW_MESSAGE,
-			FDCAN_FLAG_RX_FIFO0_NEW_MESSAGE
+			std::make_unique<CommonLib::RingBuffer<CommonLib::CanFrame,8> >(),
+			std::make_unique<CommonLib::RingBuffer<CommonLib::CanFrame,8> >(),
+			FDCAN_RX_FIFO1,
+			FDCAN_FILTER_TO_RXFIFO1,
+			FDCAN_IT_RX_FIFO1_NEW_MESSAGE,
+			FDCAN_FLAG_RX_FIFO1_NEW_MESSAGE
 	};
 
 	inline auto usb = CommonLib::UsbCdcComm{&hUsbDeviceFS,
-		std::make_unique<CommonLib::RingBuffer<CommonLib::SerialData,5> >(),
-		std::make_unique<CommonLib::RingBuffer<CommonLib::SerialData,5> >()
+		std::make_unique<CommonLib::RingBuffer<CommonLib::SerialData,8> >(),
+		std::make_unique<CommonLib::RingBuffer<CommonLib::SerialData,8> >()
 	};
 
 	enum class CommonReg:uint16_t{

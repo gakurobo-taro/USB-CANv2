@@ -76,6 +76,16 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 		UsbCanBoard::can2.rx_interrupt_task();
 	}
 }
+void HAL_FDCAN_RxFifo1Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo1ITs){
+	if (hfdcan==UsbCanBoard::can1.get_handler()) {
+		UsbCanBoard::LED1_R.play(UsbCanLib::ok);
+		UsbCanBoard::can1.rx_interrupt_task();
+	}
+	if (hfdcan==UsbCanBoard::can2.get_handler()) {
+		UsbCanBoard::LED2_R.play(UsbCanLib::ok);
+		UsbCanBoard::can2.rx_interrupt_task();
+	}
+}
 void HAL_FDCAN_TxBufferCompleteCallback(FDCAN_HandleTypeDef *hfdcan, uint32_t BufferIndexes){
 	if (hfdcan==UsbCanBoard::can2.get_handler()) {
 		UsbCanBoard::LED2_G.play(UsbCanLib::ok);
@@ -130,7 +140,8 @@ int main(void)
   MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
 UsbCanBoard::init();
-
+	int count = 0;
+	int rx_data = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -140,12 +151,36 @@ UsbCanBoard::init();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
 	  UsbCanBoard::usb_to_can_task();
 	  if(UsbCanBoard::bus_is_open){
 		  UsbCanBoard::LED1_B.play(UsbCanLib::ok);
 		  UsbCanBoard::LED2_B.play(UsbCanLib::ok);
 		  UsbCanBoard::can_to_usb_task();
 	  }
+//	  CommonLib::SerialData d;
+//	  if(UsbCanBoard::usb.rx_available()){
+//		  UsbCanBoard::usb.rx(d);
+//
+//		  CommonLib::CanFrame f;
+//		  CommonLib::DataConvert::slcan_to_can((char*)d.data,f);
+//		  auto rx_op = f.reader().read<uint16_t>();
+//		  if(rx_op.has_value()){
+//			  rx_data = rx_op.value();
+//		  }
+//		  UsbCanBoard::can1.tx(f);
+//		  count ++;
+//	  }
+//	  if(UsbCanBoard::can2.rx_available()){
+//		  CommonLib::CanFrame f;
+//		  UsbCanBoard::can2.rx(f);
+//
+//		  f.id = rx_data - count;
+//
+//		  CommonLib::SerialData d;
+//		  d.size = CommonLib::DataConvert::can_to_slcan(f, (char*)d.data, d.max_size);
+//		  UsbCanBoard::usb.tx(d);
+//	  }
   }
   /* USER CODE END 3 */
 }

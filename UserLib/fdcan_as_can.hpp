@@ -102,7 +102,7 @@ namespace G24_STM32HAL::UsbCanLib{
 		if(rx_buff->pop(rx_frame)){
 			return true;
 		}else{
-			return true;
+			return false;
 		}
 	}
 	inline void FdCanComm::rx_interrupt_task(void){

@@ -12,8 +12,8 @@
 
 namespace G24_STM32HAL::UsbCanLib{
 		inline const CommonLib::LEDState ok[] = {
-				{true,100},
-				{false,100},
+				{true,10},
+				{false,10},
 				{false,0},
 		};
 		inline const CommonLib::LEDState error[]={
