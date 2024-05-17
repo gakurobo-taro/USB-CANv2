@@ -14,6 +14,7 @@
 namespace G24_STM32HAL::UsbCanLib{
 	using namespace CommonLib;
 
+	//現状拡張IDのみ対応
 	class FdCanComm:public ICan{
 		FDCAN_HandleTypeDef *fdcan;
 		const uint32_t rx_fifo;
@@ -93,7 +94,7 @@ namespace G24_STM32HAL::UsbCanLib{
 			tx_header.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
 			tx_header.MessageMarker = 0;
 
-			HAL_FDCAN_AddMessageToTxFifoQ(fdcan, &tx_header, const_cast<uint8_t*>(tx_frame.data));
+			HAL_FDCAN_AddMessageToTxFifoQ(fdcan, &tx_header,tx_frame.data);
 		}
 	}
 
